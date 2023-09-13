@@ -1,9 +1,13 @@
+Thumbs.db*
+.DS_Store
 HELP.md
 .gradle
+gradlew.bat
+gradlew
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!/src/main/
-!/src/test/
+
+### Docker ###
+volumes
 
 ### STS ###
 .apt_generated
@@ -32,7 +36,7 @@ out/
 .vscode/
 
 ### Package Files ###
-*.jar
+#*.jar
 *.war
 *.nar
 *.ear
@@ -42,6 +46,5 @@ out/
 
 ### Exclusions ###
 !gradle/wrapper/gradle-wrapper.jar
-!artifacts/app-ibank-build-for-testers.jar
-!/src/main/
-!/src/test/
+!**/src/main/**
+!**/src/test/**
