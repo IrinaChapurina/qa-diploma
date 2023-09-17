@@ -37,7 +37,7 @@
 ```
 docker-compose up -d
 ```
-2. В новой вкладке терминала ввести команду в для запуска приложения:
+2. В новой вкладке терминала ввести команду в для запуска приложения:<br>
 
 `java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:mysql://localhost:3306/app
 `   - для MySQL
