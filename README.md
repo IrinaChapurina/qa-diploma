@@ -1,4 +1,3 @@
-[![Java CI with Gradle](https://github.com/IrinaChapurina/page-object/actions/workflows/gradle.yml/badge.svg)](https://github.com/IrinaChapurina/page-object/actions/workflows/gradle.yml)
 ## Описание приложения
 
 ### Бизнес часть
@@ -38,7 +37,7 @@
 ```
 docker-compose up -d
 ```
-2. В новой вкладке терминала ввести команду в для запуска приложения:
+2. В новой вкладке терминала ввести команду в для запуска приложения:<br>
 
 `java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:mysql://localhost:3306/app
 `   - для MySQL
@@ -48,7 +47,7 @@ docker-compose up -d
 
 
 ## Запуск тестов
-В новой вкладке терминала ввести команду в зависимости от желаемой СУБД: 
+В новой вкладке терминала ввести команду в зависимости от желаемой СУБД:<br>
 `.\gradlew clean test -Ddb.url=jdbc:mysql://localhost:3306/app
 `   - для MySQL
 
