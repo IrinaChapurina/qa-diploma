@@ -45,7 +45,7 @@ public class DataHelper {
     }
 
     public static String getCustomAddedCardYear(int amountOfYearsAdded) {
-        return LocalDate.now().plusYears(amountOfYearsAdded).format(DateTimeFormatter.ofPattern("MM"));
+        return LocalDate.now().plusYears(amountOfYearsAdded).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getCardHolder() {
@@ -100,7 +100,7 @@ public class DataHelper {
 
     public static FormData approvedCardFormDataWithApprovedNextMonth() {
         return new FormData(getApprovedCardNumber(), getCustomAddedChangedCardMonth(1),
-                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData approvedCardFormDataWithApprovedNextYear() {
@@ -115,13 +115,13 @@ public class DataHelper {
 
     public static FormData approvedCardFormDataWithDoubleZeroMonth() {
         return new FormData(getApprovedCardNumber(), getDoubleZeroData(),
-                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
 
     public static FormData approvedCardFormDataWithPreviousMonth() {
         return new FormData(getApprovedCardNumber(), getCustomAddedChangedCardMonth(-1),
-                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData declinedCardFormData() {
