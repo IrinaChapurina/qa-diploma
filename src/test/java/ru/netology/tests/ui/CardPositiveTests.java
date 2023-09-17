@@ -8,14 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardPositiveTests extends BaseUITest {
 
-    MainPage mainPage = new MainPage();
-
     @Test
     @DisplayName("Отправка формы покупки тура с принимаемой картой на текущий месяц, " +
             "текущий год и валидными данными для оставшихся полей")
     void testSuccessfulCardPurchaseTourValidExpireDate() {
-        mainPage.buyTourViaCard();
-        CardCheckoutPage cardCheckoutPage = new CardCheckoutPage();
+        MainPage mainPage = new MainPage();
+        CardCheckoutPage cardCheckoutPage = mainPage.buyTourViaCard();
         cardCheckoutPage.buyThroughCard(DataHelper.approvedCardFormData());
         cardCheckoutPage.successNotification();
         assertEquals("APPROVED", DataHelper.getBuyingOperationStatus());
@@ -25,8 +23,8 @@ public class CardPositiveTests extends BaseUITest {
     @DisplayName("Отправка формы покупки тура с принимаемой картой на текущий" +
             " месяц плюс один месяц, текущий год и валидными данными для оставшихся полей")
     void testSuccessfulCardPurchaseTourNextMonthCurrentYear() {
-        mainPage.buyTourViaCard();
-        CardCheckoutPage cardCheckoutPage = new CardCheckoutPage();
+        MainPage mainPage = new MainPage();
+        CardCheckoutPage cardCheckoutPage = mainPage.buyTourViaCard();
         cardCheckoutPage.buyThroughCard(DataHelper.approvedCardFormDataWithApprovedNextMonth());
         cardCheckoutPage.successNotification();
         assertEquals("APPROVED", DataHelper.getBuyingOperationStatus());
@@ -36,11 +34,10 @@ public class CardPositiveTests extends BaseUITest {
     @DisplayName("Отправка формы покупки тура с принимаемой картой на текущий месяц," +
             " текущий год плюс один год и валидными данными для оставшихся полей")
     void testSuccessfulCardPurchaseTourCurrentMonthNextYear() {
-        mainPage.buyTourViaCard();
-        CardCheckoutPage cardCheckoutPage = new CardCheckoutPage();
+        MainPage mainPage = new MainPage();
+        CardCheckoutPage cardCheckoutPage = mainPage.buyTourViaCard();
         cardCheckoutPage.buyThroughCard(DataHelper.approvedCardFormDataWithApprovedNextYear());
         cardCheckoutPage.successNotification();
         assertEquals("APPROVED", DataHelper.getBuyingOperationStatus());
     }
-
 }

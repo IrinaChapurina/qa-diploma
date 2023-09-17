@@ -34,20 +34,27 @@
 
 ### Запуск контейнеров
 
-1. Установить и запустить необходимые базу данных (MySQL), а также NodeJS. Параметры для запуска хранятся в файле `docker-compose.yml`. Для запуска необходимо ввести в терминале команду:
+1. Установить и запустить необходимые базы данных, а также NodeJS. Параметры для запуска хранятся в файле `docker-compose.yml`. Для запуска необходимо ввести в терминале команду:
 ```
-docker-compose up
+docker-compose up -d
 ```
 2. В новой вкладке терминала ввести команду в для запуска приложения:
 
 `java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:mysql://localhost:3306/app
 `   - для MySQL
 
-3. В новой вкладке терминала перейти в директорию эмулятора и ввести команду для запуска эмулятора платежного шлюза:
-   `cd gate-simulator` и потом `npm start`
+`java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:postgresql://localhost:5432/app
+`   - для PostgreSQL
+
 
 ## Запуск тестов
-В новой вкладке терминала ввести команду: `.\gradlew clean test`
+В новой вкладке терминала ввести команду в зависимости от желаемой СУБД: 
+`.\gradlew clean test -Ddb.url=jdbc:mysql://localhost:3306/app
+`   - для MySQL
+
+`.\gradlew clean test -Ddb.url=jdbc:postgresql://localhost:5432/app
+`   - для PostgreSQL
+
 
 ## Перезапуск приложения и тестов
 Если необходимо перезапустить приложение и/или тесты необходимо выполнить остановку работы в запущенных ранее вкладках терминала, нажав в них Ctrl+С

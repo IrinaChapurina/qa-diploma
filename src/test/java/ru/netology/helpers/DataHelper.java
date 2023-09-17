@@ -13,6 +13,7 @@ import java.util.Locale;
 public class DataHelper {
 
     private static final Faker faker = new Faker(new Locale("en"));
+    private static String dbUrl = System.getProperty("db.url");
 
     @Value
     public static class FormData {
@@ -39,24 +40,12 @@ public class DataHelper {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    public static String getNextCardMonth() {
-        return LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
+    public static String getCustomAddedChangedCardMonth(int amountOfMonthsAdded) {
+        return LocalDate.now().plusMonths(amountOfMonthsAdded).format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    public static String getPreviousCardMonth() {
-        return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
-    }
-
-    public static String getCardYearActual() {
-        return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
-    }
-
-    public static String getCardNextYear() {
-        return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
-    }
-
-    public static String getCardPreviousYear() {
-        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
+    public static String getCustomAddedCardYear(int amountOfYearsAdded) {
+        return LocalDate.now().plusYears(amountOfYearsAdded).format(DateTimeFormatter.ofPattern("MM"));
     }
 
     public static String getCardHolder() {
@@ -71,8 +60,8 @@ public class DataHelper {
         return faker.number().digits(1);
     }
 
-    public static String getWrongCardMonth() {
-        return String.valueOf(faker.number().numberBetween(13,99) | faker.number().numberBetween(0,9));
+    public static String getWrongTwoDigitCardMonth() {
+        return String.valueOf(faker.number().numberBetween(13,99));
     }
 
     public static String getDoubleZeroData() {
@@ -105,193 +94,156 @@ public class DataHelper {
     }
 
     public static FormData approvedCardFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData approvedCardFormDataWithApprovedNextMonth() {
-        FormData formData = new FormData(getApprovedCardNumber(), getNextCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCustomAddedChangedCardMonth(1),
+                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
     }
 
     public static FormData approvedCardFormDataWithApprovedNextYear() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
-                getCardNextYear(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData approvedCardFormDataWithApprovedPreviousYear() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
-                getCardPreviousYear(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(-1), getCardHolder(), getCardCode());
     }
 
     public static FormData approvedCardFormDataWithDoubleZeroMonth() {
-        FormData formData = new FormData(getApprovedCardNumber(), getDoubleZeroData(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getDoubleZeroData(),
+                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
     }
 
 
     public static FormData approvedCardFormDataWithPreviousMonth() {
-        FormData formData = new FormData(getApprovedCardNumber(), getPreviousCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCustomAddedChangedCardMonth(-1),
+                getCustomAddedCardYear(0), getCardHolder(), getCardCode());
     }
 
     public static FormData declinedCardFormData() {
-        FormData formData = new FormData(getDeclinedCardNumber(), getCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
-    }
-
-    public static FormData unknownCardFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getDeclinedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData oneCharacterCardNumberFormData() {
-        FormData formData = new FormData(getOneNumber(), getCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getOneNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData oneCharacterMonthNumberFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), getOneNumber(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getOneNumber(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData wrongCardMonthFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getWrongCardMonth(),
-                getCardYearActual(), getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getWrongTwoDigitCardMonth(),
+                getCustomAddedCardYear(1), getCardHolder(), getCardCode());
     }
 
     public static FormData wrongCardYearFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
                 getWrongCardYear(), getCardHolder(), getCardCode());
-        return formData;
     }
 
     public static FormData expiredCardYearFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
                 getCardYearExpired(), getCardHolder(), getCardCode());
-        return formData;
     }
 
     public static FormData wrongCardHolderFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(), getWrongCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getWrongCardHolder(), getCardCode());
     }
 
     public static FormData cyrillicCardHolderFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(), getCyrillicCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getCyrillicCardHolder(), getCardCode());
     }
     public static FormData numbersCardHolderFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(), getNumbersCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1), getNumbersCardHolder(), getCardCode());
     }
 
     public static FormData oneCharacterCardHolderFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(),getOneCharacter(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1),getOneCharacter(), getCardCode());
     }
 
     public static FormData specSymbolsCardHolderFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(),getCardHolder() + "!@#$%^&*№;%:?", getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1),getCardHolder() + "!@#$%^&*№;%:?", getCardCode());
     }
 
     public static FormData oneCharacterCardCodeFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
-                getCardYearActual(),getCardHolder(), getOneNumber());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1),getCardHolder(), getOneNumber());
     }
 
     public static FormData emptyCardNumberFormData() {
-        FormData formData = new FormData("", getCardMonth(),
-                getCardYearActual(),getCardHolder(), getCardCode());
-        return formData;
+        return new FormData("", getCardMonth(),
+                getCustomAddedCardYear(1),getCardHolder(), getCardCode());
     }
 
     public static FormData emptyUnknownCardMonthFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), "",
-                getCardYearActual(),getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), "",
+                getCustomAddedCardYear(1),getCardHolder(), getCardCode());
     }
 
     public static FormData emptyCardMonthFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), "",
-                getCardYearActual(),getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), "",
+                getCustomAddedCardYear(1),getCardHolder(), getCardCode());
     }
 
     public static FormData emptyUnknownCardYearFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
                 "",getCardHolder(), getCardCode());
-        return formData;
     }
 
     public static FormData emptyCardYearFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
                 "",getCardHolder(), getCardCode());
-        return formData;
     }
 
     public static FormData emptyCardHolderFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
-                getCardYearActual(),"", getCardCode());
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1),"", getCardCode());
     }
 
     public static FormData emptyCardCodeFormData() {
-        FormData formData = new FormData(getApprovedCardNumber(), getCardMonth(),
-                getCardYearActual(),getCardHolder(), "");
-        return formData;
+        return new FormData(getApprovedCardNumber(), getCardMonth(),
+                getCustomAddedCardYear(1),getCardHolder(), "");
     }
 
     public static FormData doubleZeroMonthFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getDoubleZeroData(),
-                getCardYearActual(),getCardHolder(), getCardCode());
-        return formData;
+        return new FormData(getUnknownCardNumber(), getDoubleZeroData(),
+                getCustomAddedCardYear(1),getCardHolder(), getCardCode());
     }
 
     public static FormData doubleZeroYearFormData() {
-        FormData formData = new FormData(getUnknownCardNumber(), getCardMonth(),
+        return new FormData(getUnknownCardNumber(), getCardMonth(),
                 getDoubleZeroData(),getCardHolder(), getCardCode());
-        return formData;
     }
 
     @SneakyThrows
     public static String getBuyingOperationStatus() {
         var runner = new QueryRunner();
         var getStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
+        var conn = DriverManager.getConnection(dbUrl, "app", "pass");
 
-        try (var conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");) {
-            return runner.query(conn, getStatus, new ScalarHandler<>());
-        }
+        return runner.query(conn, getStatus, new ScalarHandler<>());
     }
 
     @SneakyThrows
     public static String getCreditOperationStatus() {
         var runner = new QueryRunner();
         var getStatus = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
+        var conn = DriverManager.getConnection(dbUrl, "app", "pass");
 
-        try (var conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");) {
-            return runner.query(conn, getStatus, new ScalarHandler<>());
-        }
+        return runner.query(conn, getStatus, new ScalarHandler<>());
     }
 
     @SneakyThrows
@@ -301,11 +253,10 @@ public class DataHelper {
         var deleteOrderEntitySQL = "DELETE FROM order_entity";
         var deleteRequestEntitySQL = "DELETE FROM credit_request_entity";
 
-        try (var conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");) {
-            runner.update(conn, deletePaymentEntitySQL);
-            runner.update(conn, deleteOrderEntitySQL);
-            runner.update(conn, deleteRequestEntitySQL);
-        }
+        var conn = DriverManager.getConnection(dbUrl, "app", "pass");
+
+        runner.update(conn, deletePaymentEntitySQL);
+        runner.update(conn, deleteOrderEntitySQL);
+        runner.update(conn, deleteRequestEntitySQL);
     }
 }

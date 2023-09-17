@@ -12,116 +12,116 @@ public class CardApiTests extends BaseApiTest {
     @Test
     @DisplayName("Успешная оплата тура принимаемой картой с валидными данными формы")
     void testCardTourPurchaseApprovedCard() {
-        RestRequestHelper.sendRequest(DataHelper.approvedCardFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.approvedCardFormData(), buyOperationPath, 200);
         assertEquals("APPROVED", DataHelper.getBuyingOperationStatus());
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить тур непринимаемой картой")
     void testCardTourPurchaseDeclinedCard() {
-        RestRequestHelper.sendRequest(DataHelper.declinedCardFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.declinedCardFormData(), buyOperationPath, 200);
         assertEquals("DECLINED", DataHelper.getBuyingOperationStatus());
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить тур с номером карты в 1 символ")
     void testCardTourPurchaseSendErrorForSingleCharacterCardNumber() {
-        RestRequestHelper.sendBadRequest(DataHelper.oneCharacterCardNumberFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.oneCharacterCardNumberFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить тур случайной картой с неверным двузначным форматом 'месяц'")
     void testCardTourPurchaseSendErrorForWrongFormatCardMonth() {
-        RestRequestHelper.sendBadRequest(DataHelper.wrongCardMonthFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.wrongCardMonthFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить тур случайной картой с трехзначным форматом параметра 'год'")
     void testCardTourPurchaseSendErrorForWrongFormatCardYear() {
-        RestRequestHelper.sendBadRequest(DataHelper.wrongCardYearFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.wrongCardYearFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить тур валидной картой с истекшим параметром 'год'")
     void testCardTourPurchaseSendErrorForExpiredCardYear() {
-        RestRequestHelper.sendBadRequest(DataHelper.approvedCardFormDataWithApprovedPreviousYear(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.approvedCardFormDataWithApprovedPreviousYear(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур с именем владельца из одного слова")
     void testCardTourPurchaseSendErrorForWrongFormatCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.wrongCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.wrongCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур именем владельца карты на кириллице")
     void testCardTourPurchaseSendErrorForCyrillicCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.cyrillicCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.cyrillicCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур с именем владельца карты цифрами")
     void testCardTourPurchaseErrorForNumbersCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.numbersCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.numbersCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур с именем владельца карты в один символ")
     void testCardTourPurchaseErrorForOneCharacterCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.oneCharacterCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.oneCharacterCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур с именем владельца карты с спец символом")
     void testCardTourPurchaseSpecSymbolsCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.specSymbolsCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.specSymbolsCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить картой тур с CVV карты в один символ")
     void testCardTourPurchaseErrorForOneCharacterCardCode() {
-        RestRequestHelper.sendBadRequest(DataHelper.oneCharacterCardCodeFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.oneCharacterCardCodeFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке картой с пустым номером карты")
     void testCardTourPurchaseErrorForEmptyCardNumber() {
-        RestRequestHelper.sendBadRequest(DataHelper.emptyCardNumberFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.emptyCardNumberFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой с пустым полем 'месяц'")
     void testCardTourPurchaseErrorForEmptyCardMonth() {
-        RestRequestHelper.sendBadRequest(DataHelper.emptyUnknownCardMonthFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.emptyUnknownCardMonthFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой с пустым полем 'год'")
     void testCardTourPurchaseErrorForEmptyCardYear() {
-        RestRequestHelper.sendBadRequest(DataHelper.emptyUnknownCardYearFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.emptyUnknownCardYearFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой с пустым полем 'владелец'")
     void testCardTourPurchaseErrorForEmptyCardHolder() {
-        RestRequestHelper.sendBadRequest(DataHelper.emptyCardHolderFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.emptyCardHolderFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой с пустым полем 'CVV'")
     void testCardTourPurchaseErrorForEmptyCardCode() {
-        RestRequestHelper.sendBadRequest(DataHelper.emptyCardCodeFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.emptyCardCodeFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой c 00 в поле 'месяц'")
     void testCardTourPurchaseErrorForDoubleZeroMonth() {
-        RestRequestHelper.sendBadRequest(DataHelper.doubleZeroMonthFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.doubleZeroMonthFormData(), buyOperationPath, 500);
     }
 
     @Test
     @DisplayName("Отказ при попытке оплатить случайной картой c 00 в поле 'год'")
     void testCardTourPurchaseErrorForDoubleZeroYear() {
-        RestRequestHelper.sendBadRequest(DataHelper.doubleZeroYearFormData(), buyOperationPath);
+        RestRequestHelper.sendRequest(DataHelper.doubleZeroYearFormData(), buyOperationPath, 500);
     }
 }

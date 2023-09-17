@@ -16,7 +16,7 @@ public class RestRequestHelper {
             .log(LogDetail.ALL)
             .build();
 
-    public static void sendRequest(DataHelper.FormData formData, String path) {
+    public static void sendRequest(DataHelper.FormData formData, String path, int statusCode) {
         given()
                 .spec(requestSpec)
                 .body(formData)
@@ -24,16 +24,6 @@ public class RestRequestHelper {
                 .post(path)
                 .then()
                 .log().all()
-                .statusCode(200);
-    }
-    public static void sendBadRequest(DataHelper.FormData formData, String path) {
-        given()
-                .spec(requestSpec)
-                .body(formData)
-                .when()
-                .post(path)
-                .then()
-                .log().all()
-                .statusCode(500);
+                .statusCode(statusCode);
     }
 }

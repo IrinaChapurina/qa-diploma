@@ -15,8 +15,8 @@ public class BaseUITest {
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
-        //Configuration.browser = "chrome";
-        //Configuration.browserSize = "1920x1080";
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
     }
     @BeforeEach
     void setup() {
@@ -27,5 +27,4 @@ public class BaseUITest {
         SelenideLogger.removeListener("allure");
         DataHelper.cleanData();
     }
-    
 }
