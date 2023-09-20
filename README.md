@@ -39,19 +39,19 @@ docker-compose up -d
 ```
 2. В новой вкладке терминала ввести команду в для запуска приложения:<br>
 
-`java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:mysql://localhost:3306/app
+`java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar
 `   - для MySQL
 
-`java -jar .\artifacts\aqa-shop.jar --Dspring.datasource.url=jdbc:postgresql://localhost:5432/app
+`java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
 `   - для PostgreSQL
 
 
 ## Запуск тестов
 В новой вкладке терминала ввести команду в зависимости от желаемой СУБД:<br>
-`.\gradlew clean test -Ddb.url=jdbc:mysql://localhost:3306/app
+`gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"
 `   - для MySQL
 
-`.\gradlew clean test -Ddb.url=jdbc:postgresql://localhost:5432/app
+`gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"
 `   - для PostgreSQL
 
 
@@ -61,6 +61,6 @@ docker-compose up -d
 ## Формирование отчета AllureReport по результатам тестирования
 В новой вкладке терминала или нажав двойной Ctrl ввести команду:
 ```
-./gradlew allureServe
+gradlew allureServe
 ```
 Сгенерированный отчет откроется в браузере автоматически. После просмотра и закрытия отчета можно остановить работу команды, нажав Ctrl+С или закрыть вкладку Run и нажать Disconnect.

@@ -69,7 +69,7 @@ public class CreditCheckoutPage {
     }
 
     public void cardYearFieldSubMessage(String subMessage) {
-        cardYearFieldSubMessage.shouldHave(visible, exactText(subMessage));
+        cardYearFieldSubMessage.shouldHave(exactText(subMessage), Duration.ofSeconds(10)).shouldBe(Condition.visible);
     }
 
     public void cardHolderFieldSubMessage(String subMessage) {
