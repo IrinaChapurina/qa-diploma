@@ -26,11 +26,6 @@ public class BaseUITest {
         open("http://localhost:8080");
     }
 
-    @AfterEach
-    void tearDown() {
-        closeWebDriver();
-    }
-
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
