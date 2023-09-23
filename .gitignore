@@ -2,8 +2,6 @@ Thumbs.db*
 .DS_Store
 HELP.md
 .gradle
-gradlew.bat
-gradlew
 build/
 
 ### Docker ###
